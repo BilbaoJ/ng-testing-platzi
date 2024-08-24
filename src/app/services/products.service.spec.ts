@@ -9,7 +9,7 @@ import { generateManyProducts, generateOneProduct } from '../models/product.mock
 import { tokenInterceptor } from '../interceptors/token.interceptor';
 import { TokenService } from './token.service';
 
-fdescribe('ProductsService', () => {
+describe('ProductsService', () => {
   let productsService: ProductsService;
   let httpController: HttpTestingController;
   let tokenService: TokenService;
