@@ -11,5 +11,10 @@ import { Person } from '../../models/person.model';
 export class PersonComponent {
 
   @Input() person: Person = new Person('', '', 0, 0, 0);
+  imc: string = '';
+
+  calcIMC(){
+    this.imc = this.person.calIMC();
+  }
 
 }
