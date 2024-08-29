@@ -5,4 +5,13 @@
       <app-product [product]="product"></app-product>
     }
   </div>
+  <button [disabled]="status === 'loading'" (click)="getAllProducts()">
+    @if (status === 'init' || status === 'success') {
+      <span>Load more</span>
+    } @else if(status === 'loading'){
+      <span>Loading</span>
+    } @else {
+      <span>Error</span>
+    }
+  </button>
 </section>

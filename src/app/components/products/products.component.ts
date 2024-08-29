@@ -14,6 +14,9 @@ import { ProductComponent } from '../product/product.component';
 export class ProductsComponent {
 
   products: Product[] = [];
+  limit = 10;
+  offset = 0;
+  status: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private productsService: ProductsService
@@ -24,9 +27,20 @@ export class ProductsComponent {
   }
 
   getAllProducts(){
-    this.productsService.getAll()
-    .subscribe(products => {
-      this.products = products;
+    this.status = 'loading';
+    this.productsService.getAll(this.limit, this.offset)
+    .subscribe({
+      next: (products)=> {
+        this.products = [...this.products, ...products];
+        this.offset += this.limit;
+        this.status = 'success';
+      },
+      error: error => {
+        // setTimeout(() => {
+        //   this.products = [];
+        //   this.status = 'error';
+        // }, 3000)
+      }
     });
   }
 
