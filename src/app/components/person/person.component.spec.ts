@@ -5,7 +5,7 @@ import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Person } from '../../models/person.model';
 
-fdescribe('PersonComponent', () => {
+describe('PersonComponent', () => {
   let component: PersonComponent;
   let fixture: ComponentFixture<PersonComponent>;
 
@@ -97,7 +97,7 @@ class HostComponent{
   }
 }
 
-fdescribe('PersonComponent form HostComponent', () => {
+describe('PersonComponent form HostComponent', () => {
   let component: HostComponent;
   let fixture: ComponentFixture<HostComponent>;
 
