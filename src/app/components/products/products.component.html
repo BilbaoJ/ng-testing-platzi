@@ -2,12 +2,7 @@
   <h1>Products component</h1>
   <div class="my-grid">
     @for (product of products; track $index) {
-      <figure>
-        <img src="https://picsum.photos/id/{{product.id}}/400" [alt]="product.title">
-        <figcaption>
-          {{ product.title }} - {{ product.price }}
-        </figcaption>
-      </figure>
+      <app-product [product]="product"></app-product>
     }
   </div>
 </section>
