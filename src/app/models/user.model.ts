@@ -6,4 +6,4 @@ export interface User {
   role: 'customer' | 'admin';
 }
 
-export interface CreateUserDTO extends Omit<User, 'id'> {}
+export interface CreateUserDTO extends Omit<User, 'id' | 'role'> {}

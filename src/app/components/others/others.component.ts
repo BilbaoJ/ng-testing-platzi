@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HighligthDirective } from '../../directives/highligth.directive';
-import { ReversePipe } from '../../pipes/reverse.pipe';
+import { HighligthDirective } from '../../shared/directives/highligth.directive';
+import { ReversePipe } from '../../shared/pipes/reverse.pipe';
 
 @Component({
   selector: 'app-others',
