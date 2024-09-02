@@ -37,7 +37,10 @@ export class RegisterFormComponent {
     event.preventDefault();
     if (this.form.valid) {
       const value = this.form.value as CreateUserDTO;
-      this.usersService.create(value)
+      this.usersService.create({
+        ...value,
+        avatar: 'https://picsum.photos/400/400'
+      })
       .subscribe((rta) => {
         console.log(rta);
       });
