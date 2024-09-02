@@ -25,6 +25,7 @@ export class RegisterFormComponent {
       validators: MyValidators.matchPasswords,
     }
   );
+  status: 'loading' | 'success' | 'error' | 'init' = 'init'
 
   constructor(
     private fb: FormBuilder,
@@ -36,12 +37,14 @@ export class RegisterFormComponent {
   register(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
+      this.status = 'loading';
       const value = this.form.value as CreateUserDTO;
       this.usersService.create({
         ...value,
         avatar: 'https://picsum.photos/400/400'
       })
       .subscribe((rta) => {
+        this.status = 'success';
         console.log(rta);
       });
     } else {
