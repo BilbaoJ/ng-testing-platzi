@@ -2,7 +2,7 @@
   <h1>Products component</h1>
   <h3>Rta</h3>
   <button data-testid="btn-promise" (click)="callPromise()">Call promise</button>
-  <p class="rta">{{ rta }}</p>
+  <p data-testid="rta" class="rta">{{ rta }}</p>
   <div class="my-grid">
     @for (product of products; track $index) {
       <app-product [product]="product"></app-product>

@@ -3,7 +3,7 @@
   <!--<app-person [person]="person" ></app-person>-->
   <h3>Selected person</h3>
   @if (selectedPerson) {
-    <div class="selected-person">
+    <div data-testid="selected-person" class="selected-person">
       <ul>
         <li>Name: {{ selectedPerson.name }}</li>
         <li>Age: {{ selectedPerson.age }}</li>

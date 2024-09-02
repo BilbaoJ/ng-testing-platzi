@@ -6,7 +6,7 @@ import { ProductsService } from '../../services/products.service';
 import { generateManyProducts } from '../../models/product.mock';
 import { ValueService } from '../../services/value.service';
 import { By } from '@angular/platform-browser';
-import { asyncData, asyncError, mockObservable, mockPromise, query, queryById } from '../../../testing';
+import { asyncData, asyncError, getText, mockObservable, mockPromise, query, queryById } from '../../../testing';
 
 describe('ProductsComponent', () => {
   let component: ProductsComponent;
@@ -90,10 +90,10 @@ describe('ProductsComponent', () => {
       btnDebug.triggerEventHandler('click', null);
       tick();
       fixture.detectChanges();
-      const pDebug = query(fixture, 'p.rta');
+      const textRta = getText(fixture, 'rta');
       expect(component.rta).toEqual(mockMsg);
       expect(valueService.getPromiseValue).toHaveBeenCalled();
-      expect(pDebug.nativeElement.textContent).toEqual(mockMsg);
+      expect(textRta).toContain(mockMsg);
 
     }));
   });
