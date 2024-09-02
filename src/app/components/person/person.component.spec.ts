@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PersonComponent } from './person.component';
-import { Component, DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { Person } from '../../models/person.model';
-import { getText, query } from '../../../testing';
+import { clickEvent, getText, query } from '../../../testing';
 
 describe('PersonComponent', () => {
   let component: PersonComponent;
@@ -58,8 +57,7 @@ describe('PersonComponent', () => {
   it('should display a text with IMC when do clic', () => {
     component.person = new Person('Juan', 'Perez', 28, 120, 1.60);
     const expectMsg = 'overweigth level 3';
-    const bDebug = query(fixture, 'button.btn-imc');
-    bDebug.triggerEventHandler('click', null);
+    clickEvent(fixture, 'btn-imc', true);
     fixture.detectChanges();
     const text = getText(fixture, 'btn-imc');
     expect(text).toContain(expectMsg);
@@ -68,13 +66,12 @@ describe('PersonComponent', () => {
   it('should raise selected event when do clic', (doneFn) => {
     const expectPerson = new Person('Juan', 'Perez', 28, 120, 1.60);
     component.person = expectPerson;
-    const bDebug = query(fixture, 'button.btn-choose');
     let selectedPerson: Person | undefined;
     component.onSelected.subscribe(person => {
       selectedPerson = person;
       doneFn();
     });
-    bDebug.triggerEventHandler('click', null);
+    clickEvent(fixture, 'btn-choose', true);
     fixture.detectChanges();
     expect(selectedPerson).toEqual(expectPerson);
   });
@@ -121,8 +118,7 @@ describe('PersonComponent form HostComponent', () => {
   });
 
   it('should raise selected event when clicked', () => {
-    const btnDebug = query(fixture, 'app-person .btn-choose');
-    btnDebug.triggerEventHandler('click', null);
+    clickEvent(fixture, 'btn-choose', true);
     fixture.detectChanges()
     expect(component.selectedPerson).toEqual(component.person);
   });

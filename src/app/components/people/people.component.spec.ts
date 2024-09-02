@@ -4,7 +4,7 @@ import { PeopleComponent } from './people.component';
 import { PersonComponent } from '../person/person.component';
 import { Person } from '../../models/person.model';
 import { By } from '@angular/platform-browser';
-import { query } from '../../../testing';
+import { clickEvent, query } from '../../../testing';
 
 describe('PeopleComponent', () => {
   let component: PeopleComponent;
@@ -37,15 +37,13 @@ describe('PeopleComponent', () => {
   });
 
   it('should raise selected event when click', () => {
-    const btnDebug = query(fixture, 'app-person .btn-choose');
-    btnDebug.triggerEventHandler('click', null);
+    clickEvent(fixture, 'btn-choose', true);
     fixture.detectChanges();
     expect(component.selectedPerson).toEqual(component.people[0]);
   });
 
   it('should render the selected person', () => {
-    const btnDebug = query(fixture, 'app-person .btn-choose');
-    btnDebug.triggerEventHandler('click', null);
+    clickEvent(fixture, 'btn-choose', true);
     fixture.detectChanges();
     const liDebug = query(fixture, '.selected-person ul > li');
     expect(component.selectedPerson).toEqual(component.people[0]);

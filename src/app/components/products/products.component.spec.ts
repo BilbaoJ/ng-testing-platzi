@@ -6,7 +6,7 @@ import { ProductsService } from '../../services/products.service';
 import { generateManyProducts } from '../../models/product.mock';
 import { ValueService } from '../../services/value.service';
 import { By } from '@angular/platform-browser';
-import { asyncData, asyncError, getText, mockObservable, mockPromise, query, queryById } from '../../../testing';
+import { asyncData, asyncError, clickEvent, getText, mockObservable, mockPromise, query, queryById } from '../../../testing';
 
 describe('ProductsComponent', () => {
   let component: ProductsComponent;
@@ -86,8 +86,7 @@ describe('ProductsComponent', () => {
     it('should show "my mock message" in <p> when button was clicked', fakeAsync(() => {
       const mockMsg = 'my mock message';
       valueService.getPromiseValue.and.returnValue(mockPromise(mockMsg));
-      const btnDebug = queryById(fixture, 'btn-promise');
-      btnDebug.triggerEventHandler('click', null);
+      clickEvent(fixture, 'btn-promise', true);
       tick();
       fixture.detectChanges();
       const textRta = getText(fixture, 'rta');
