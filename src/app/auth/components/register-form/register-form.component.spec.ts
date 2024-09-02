@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterFormComponent } from './register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { getText, query, setinputValue } from '../../../../testing';
 
 fdescribe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
@@ -59,5 +60,27 @@ fdescribe('RegisterFormComponent', () => {
       checkTerms: false
     });
     expect(component.form.invalid).toBeTruthy();
+  });
+
+  it('should the email field be invalid from UI', () => {
+    const inputDebug = query(fixture, 'input#email');
+    const inputElement: HTMLInputElement = inputDebug.nativeElement;
+    inputElement.value = 'esto no es un correo';
+    inputElement.dispatchEvent(new Event('input'));
+    inputElement.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+    expect(component.emailField?.invalid).withContext('wrong email').toBeTruthy();
+
+    const errorText = getText(fixture, 'emailField-email');
+    expect(errorText).toContain("It's not a email");
+  });
+
+  it('should the email field be invalid from UI with Helper', () => {
+    setinputValue(fixture, 'input#email', 'esto no es un correo');
+    fixture.detectChanges();
+    expect(component.emailField?.invalid).withContext('wrong email').toBeTruthy();
+
+    const errorText = getText(fixture, 'emailField-email');
+    expect(errorText).toContain("It's not a email");
   });
 });
