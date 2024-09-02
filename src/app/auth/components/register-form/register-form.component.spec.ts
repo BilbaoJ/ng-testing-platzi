@@ -3,15 +3,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterFormComponent } from './register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
-import { getText, query, setinputValue } from '../../../../testing';
+import { getText, mockObservable, query, setinputValue } from '../../../../testing';
+import { generateOneUser } from '../../../models/user.mock';
 
 fdescribe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
   let fixture: ComponentFixture<RegisterFormComponent>;
-  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let userService: jasmine.SpyObj<UserService>;
 
   beforeEach(async () => {
-    const userServiceSpy = jasmine.createSpyObj('userService', ['create']);
+    let userServiceSpy = jasmine.createSpyObj('userService', ['create']);
     await TestBed.configureTestingModule({
       imports: [RegisterFormComponent, ReactiveFormsModule],
       providers: [
@@ -22,6 +23,7 @@ fdescribe('RegisterFormComponent', () => {
 
     fixture = TestBed.createComponent(RegisterFormComponent);
     component = fixture.componentInstance;
+    userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
     fixture.detectChanges();
   });
 
@@ -82,5 +84,20 @@ fdescribe('RegisterFormComponent', () => {
 
     const errorText = getText(fixture, 'emailField-email');
     expect(errorText).toContain("It's not a email");
+  });
+
+  it('should send the form successfully', () => {
+    component.form.patchValue({
+      name: 'Pepito',
+      email: 'pepito@mail.com',
+      password: '123456',
+      confirmPassword: '123456',
+      checkTerms: true
+    });
+    const mockUser = generateOneUser();
+    userService.create.and.returnValue(mockObservable(mockUser));
+    component.register(new Event('submit'));
+    expect(component.form.valid).toBeTruthy();
+    expect(userService.create).toHaveBeenCalled();
   });
 });
