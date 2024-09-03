@@ -43,8 +43,13 @@ export class RegisterFormComponent {
         ...value,
         avatar: 'https://picsum.photos/400/400'
       })
-      .subscribe((rta) => {
-        this.status = 'success';
+      .subscribe({
+        next: (rta) => {
+          this.status = 'success';
+        },
+        error: () => {
+          this.status = 'error';
+        }
       });
     } else {
       this.form.markAllAsTouched();
