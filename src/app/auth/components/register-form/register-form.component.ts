@@ -45,7 +45,6 @@ export class RegisterFormComponent {
       })
       .subscribe((rta) => {
         this.status = 'success';
-        console.log(rta);
       });
     } else {
       this.form.markAllAsTouched();
