@@ -2,11 +2,10 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 
 import { ProductsComponent } from './products.component';
 import { ProductComponent } from '../product/product.component';
-import { ProductsService } from '../../services/products.service';
-import { generateManyProducts } from '../../models/product.mock';
-import { ValueService } from '../../services/value.service';
-import { By } from '@angular/platform-browser';
-import { asyncData, asyncError, clickEvent, getText, mockObservable, mockPromise, query, queryById } from '../../../testing';
+import { ProductsService } from '../../../services/products.service';
+import { generateManyProducts } from '../../../models/product.mock';
+import { ValueService } from '../../../services/value.service';
+import { asyncData, asyncError, clickEvent, getText, mockObservable, mockPromise} from '../../../../testing';
 
 describe('ProductsComponent', () => {
   let component: ProductsComponent;

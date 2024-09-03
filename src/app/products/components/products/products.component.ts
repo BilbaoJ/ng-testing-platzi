@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
-import { Product } from '../../models/product.model';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/product.model';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from '../product/product.component';
-import { ValueService } from '../../services/value.service';
+import { ValueService } from '../../../services/value.service';
 
 @Component({
   selector: 'app-products',
