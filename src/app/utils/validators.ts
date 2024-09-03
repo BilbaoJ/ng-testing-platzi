@@ -1,4 +1,6 @@
 import { AbstractControl } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { map } from 'rxjs';
 
 export class MyValidators {
 
@@ -45,6 +47,22 @@ export class MyValidators {
   //     );
   //   };
   // }
+
+  static validateEmailAsync(service: UserService) {
+    return (control: AbstractControl) => {
+      const value = control.value;
+      return service.isAvailableByEmail(value)
+      .pipe(
+        map((response) => {
+          const isAvailable = response.isAvailable;
+          if (!isAvailable) {
+            return {not_available: true};
+          }
+          return null;
+        })
+      );
+    };
+  }
 
 }
 
