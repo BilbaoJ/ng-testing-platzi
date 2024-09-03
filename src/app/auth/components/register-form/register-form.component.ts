@@ -4,6 +4,7 @@ import { MyValidators } from '../../../utils/validators';
 import { UserService } from '../../../services/user.service';
 import { CreateUserDTO } from '../../../models/user.model';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -29,7 +30,8 @@ export class RegisterFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private usersService: UserService
+    private usersService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -46,6 +48,7 @@ export class RegisterFormComponent {
       .subscribe({
         next: (rta) => {
           this.status = 'success';
+          this.router.navigateByUrl('/login');
         },
         error: () => {
           this.status = 'error';

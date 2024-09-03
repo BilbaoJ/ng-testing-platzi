@@ -5,18 +5,22 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { asyncData, asyncError, clickElement, getText, mockObservable, query, setCheckBoxValue, setinputValue } from '../../../../testing';
 import { generateOneUser } from '../../../models/user.mock';
+import { Router } from '@angular/router';
 
-describe('RegisterFormComponent', () => {
+fdescribe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
   let fixture: ComponentFixture<RegisterFormComponent>;
   let userService: jasmine.SpyObj<UserService>;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
     let userServiceSpy = jasmine.createSpyObj('userService', ['create', 'isAvailableByEmail']);
+    let routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     await TestBed.configureTestingModule({
       imports: [RegisterFormComponent, ReactiveFormsModule],
       providers: [
-        {provide: UserService, useValue: userServiceSpy}
+        {provide: UserService, useValue: userServiceSpy},
+        {provide: Router, useValue: routerSpy}
       ]
     })
     .compileComponents();
@@ -24,6 +28,7 @@ describe('RegisterFormComponent', () => {
     fixture = TestBed.createComponent(RegisterFormComponent);
     component = fixture.componentInstance;
     userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     userService.isAvailableByEmail.and.returnValue(mockObservable({isAvailable: true}));
     fixture.detectChanges();
   });
@@ -137,6 +142,7 @@ describe('RegisterFormComponent', () => {
     expect(component.status).toEqual('success');
     expect(component.form.valid).toBeTruthy();
     expect(userService.create).toHaveBeenCalled();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/login');
   }));
 
   it('should send the form form UI but with error in the service', fakeAsync(() => {
