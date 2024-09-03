@@ -3,7 +3,7 @@ import { MyValidators } from "./validators";
 import { UserService } from "../services/user.service";
 import { mockObservable } from "../../testing";
 
-fdescribe('Test for MyValidators', () => {
+describe('Test for MyValidators', () => {
   describe('Test for validPassword', () => {
     it('should return null when password is right', () => {
       const control = new FormControl();
