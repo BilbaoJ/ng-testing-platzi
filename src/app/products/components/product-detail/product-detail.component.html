@@ -3,7 +3,7 @@
     <a (click)="goToBack()">Back</a>
     <div class="detail" *ngIf="product">
       <figure>
-        <img [src]="product.images[0]" alt="">
+        <img src="https://picsum.photos/id/{{product.id}}/400" [alt]="product.title">
       </figure>
       <div>
         <h1>{{ product.title }}</h1>
