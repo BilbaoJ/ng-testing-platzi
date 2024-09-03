@@ -6,7 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { asyncData, asyncError, clickElement, getText, mockObservable, query, setCheckBoxValue, setinputValue } from '../../../../testing';
 import { generateOneUser } from '../../../models/user.mock';
 
-fdescribe('RegisterFormComponent', () => {
+describe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
   let fixture: ComponentFixture<RegisterFormComponent>;
   let userService: jasmine.SpyObj<UserService>;
