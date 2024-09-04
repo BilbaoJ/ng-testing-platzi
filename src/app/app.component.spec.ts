@@ -10,7 +10,7 @@ class BannerStubComponent {}
 @Component({standalone: true, selector: 'app-footer', template: ''})
 class FooterStubComponent {}
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let linkDes: DebugElement[];
