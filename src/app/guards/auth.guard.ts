@@ -9,13 +9,13 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean> => {
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
 
-  route.params['idProduct'];
-  route.data['idProduct'];
-  route.paramMap.get('idProduct');
-  route.paramMap.has('idProduct');
+  // route.params['idProduct'];
+  // route.data['idProduct'];
+  // route.paramMap.get('idProduct');
+  // route.paramMap.has('idProduct');
   return authService.getUser().pipe(map(user => {
     if (!user) {
-      router.navigate(['/home']);
+      router.navigate(['/']);
       return false;
     }
     return true;
