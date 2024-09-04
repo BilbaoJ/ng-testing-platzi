@@ -13,6 +13,7 @@ import { CommonModule, Location } from '@angular/common';
 })
 export class ProductDetailComponent {
   product: Product | null = null;
+  status: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private route: ActivatedRoute,
@@ -33,12 +34,15 @@ export class ProductDetailComponent {
   }
 
   private getProductDetail(productId: string) {
+    this.status = 'loading';
     this.productsService.getOne(productId)
     .subscribe({
       next: (product) => {
+        this.status = 'success';
         this.product = product;
       },
       error: () => {
+        this.status = 'error';
         this.goToBack();
       }
     })
