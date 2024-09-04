@@ -2,7 +2,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { provideRouter, RouterLink } from '@angular/router';
 import { queryByDirective } from '../testing';
-import { DebugElement } from '@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+
+@Component({standalone: true, selector: 'app-banner', template: ''})
+class BannerStubComponent {}
+
+@Component({standalone: true, selector: 'app-footer', template: ''})
+class FooterStubComponent {}
 
 fdescribe('AppComponent', () => {
   let component: AppComponent;
@@ -15,8 +21,11 @@ fdescribe('AppComponent', () => {
       imports: [
         AppComponent,
         RouterLink,
+        BannerStubComponent,
+        FooterStubComponent
       ],
       providers: [provideRouter([])],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
