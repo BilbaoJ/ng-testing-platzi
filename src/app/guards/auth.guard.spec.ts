@@ -4,7 +4,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { authGuard } from './auth.guard';
 import { TokenService } from '../services/token.service';
 import { AuthService } from '../services/auth.service';
-import { fakeActivatedRouteSnapshot, fakeRouterStateSnapshot } from '../../testing/snapshot';
+import { fakeActivatedRouteSnapshot, fakeParamMap, fakeRouterStateSnapshot } from '../../testing/snapshot';
 import { mockObservable } from '../../testing';
 import { generateOneUser } from '../models/user.mock';
 import { Observable } from 'rxjs';
@@ -37,7 +37,17 @@ describe('authGuard', () => {
   });
 
   it('should return true with session', (doneFn) => {
-    const activateRoute = fakeActivatedRouteSnapshot({});
+    const activateRoute = fakeActivatedRouteSnapshot({
+      params: {
+        idProduct: '123'
+      },
+      data: {
+        idProduct: '123'
+      },
+      paramMap: fakeParamMap({
+        idProduct: '123'
+      })
+    });
     const routerState = fakeRouterStateSnapshot({});
     const userMock = generateOneUser();
     authService.getUser.and.returnValue(mockObservable(userMock));
@@ -49,7 +59,39 @@ describe('authGuard', () => {
   });
 
   it('should return false without session', (doneFn) => {
-    const activateRoute = fakeActivatedRouteSnapshot({});
+    const activateRoute = fakeActivatedRouteSnapshot({
+      params: {
+        idProduct: '123'
+      },
+      data: {
+        idProduct: '123'
+      },
+      paramMap: fakeParamMap({
+        idProduct: '123'
+      })
+    });
+    const routerState = fakeRouterStateSnapshot({});
+    authService.getUser.and.returnValue(mockObservable(null));
+    const result = executeGuard(activateRoute, routerState) as Observable<boolean>;
+    result.subscribe(rta => {
+      expect(rta).toBeFalse();
+      expect(router.navigate).toHaveBeenCalledWith(['/home']);
+      doneFn();
+    });
+  });
+
+  it('should return false idProduct params', (doneFn) => {
+    const activateRoute = fakeActivatedRouteSnapshot({
+      params: {
+        idProduct: '123'
+      },
+      data: {
+        idProduct: '123'
+      },
+      paramMap: fakeParamMap({
+        idProduct: '123'
+      })
+    });
     const routerState = fakeRouterStateSnapshot({});
     authService.getUser.and.returnValue(mockObservable(null));
     const result = executeGuard(activateRoute, routerState) as Observable<boolean>;
