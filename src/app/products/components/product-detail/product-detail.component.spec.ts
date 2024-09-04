@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import { generateOneProduct } from '../../../models/product.mock';
 import { asyncData, getText, mockObservable } from '../../../../testing';
 
-fdescribe('ProductDetailComponent', () => {
+describe('ProductDetailComponent', () => {
   let component: ProductDetailComponent;
   let productsService: jasmine.SpyObj<ProductsService>;
 
