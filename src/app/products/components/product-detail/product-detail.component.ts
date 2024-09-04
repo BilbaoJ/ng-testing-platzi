@@ -14,6 +14,7 @@ import { CommonModule, Location } from '@angular/common';
 export class ProductDetailComponent {
   product: Product | null = null;
   status: 'loading' | 'success' | 'error' | 'init' = 'init';
+  typeCostumer: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,10 @@ export class ProductDetailComponent {
           this.goToBack();
         }
       });
+
+    this.route.queryParamMap.subscribe(params => {
+      this.typeCostumer = params.get('type');
+    })
   }
 
   private getProductDetail(productId: string) {

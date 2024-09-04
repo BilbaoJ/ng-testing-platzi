@@ -1,6 +1,7 @@
 <section class="container">
   <article>
     <a (click)="goToBack()">Back</a>
+    <h2 data-testid="typeCostumer">Type: {{ typeCostumer }}</h2>
     <div class="detail" *ngIf="product">
       <figure>
         <img data-testid="img" src="https://picsum.photos/id/{{product.id}}/400" [alt]="product.title">

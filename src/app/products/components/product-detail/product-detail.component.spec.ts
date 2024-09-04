@@ -82,4 +82,17 @@ fdescribe('ProductDetailComponent', () => {
     harness.fixture.detectChanges();
     expect(component.status).toEqual('success');
   }));
+
+  it('should type be "customer"', async() => {
+    const harness = await RouterTestingHarness.create();
+    const productMock = {
+      ...generateOneProduct(),
+      id: '2'
+    };
+    productsService.getOne.and.returnValue(asyncData(productMock));
+    component = await harness.navigateByUrl('products/2?type=customer', ProductDetailComponent);
+    const textType = getText(harness.fixture, 'typeCostumer');
+    expect(component.typeCostumer).toEqual('customer');
+    expect(textType).toContain('customer');
+  });
 });
