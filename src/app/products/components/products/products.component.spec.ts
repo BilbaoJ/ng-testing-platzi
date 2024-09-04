@@ -6,8 +6,9 @@ import { ProductsService } from '../../../services/products.service';
 import { generateManyProducts } from '../../../models/product.mock';
 import { ValueService } from '../../../services/value.service';
 import { asyncData, asyncError, clickEvent, getText, mockObservable, mockPromise} from '../../../../testing';
+import { provideRouter } from '@angular/router';
 
-xdescribe('ProductsComponent', () => {
+describe('ProductsComponent', () => {
   let component: ProductsComponent;
   let fixture: ComponentFixture<ProductsComponent>;
   let productsService: jasmine.SpyObj<ProductsService>;
@@ -19,9 +20,10 @@ xdescribe('ProductsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ProductsComponent, ProductComponent],
       providers: [
+        provideRouter([]),
         {provide: ProductsService, useValue: productServiceSpy},
         {provide: ValueService, useValue: valueServiceSpy}
-      ]
+      ],
     })
     .compileComponents();
 

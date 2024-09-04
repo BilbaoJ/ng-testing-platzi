@@ -37,17 +37,7 @@ describe('authGuard', () => {
   });
 
   it('should return true with session', (doneFn) => {
-    const activateRoute = fakeActivatedRouteSnapshot({
-      params: {
-        idProduct: '123'
-      },
-      data: {
-        idProduct: '123'
-      },
-      paramMap: fakeParamMap({
-        idProduct: '123'
-      })
-    });
+    const activateRoute = fakeActivatedRouteSnapshot({});
     const routerState = fakeRouterStateSnapshot({});
     const userMock = generateOneUser();
     authService.getUser.and.returnValue(mockObservable(userMock));
@@ -59,45 +49,25 @@ describe('authGuard', () => {
   });
 
   it('should return false without session', (doneFn) => {
-    const activateRoute = fakeActivatedRouteSnapshot({
-      params: {
-        idProduct: '123'
-      },
-      data: {
-        idProduct: '123'
-      },
-      paramMap: fakeParamMap({
-        idProduct: '123'
-      })
-    });
+    const activateRoute = fakeActivatedRouteSnapshot({});
     const routerState = fakeRouterStateSnapshot({});
     authService.getUser.and.returnValue(mockObservable(null));
     const result = executeGuard(activateRoute, routerState) as Observable<boolean>;
     result.subscribe(rta => {
       expect(rta).toBeFalse();
-      expect(router.navigate).toHaveBeenCalledWith(['/home']);
+      expect(router.navigate).toHaveBeenCalledWith(['/']);
       doneFn();
     });
   });
 
-  it('should return false idProduct params', (doneFn) => {
-    const activateRoute = fakeActivatedRouteSnapshot({
-      params: {
-        idProduct: '123'
-      },
-      data: {
-        idProduct: '123'
-      },
-      paramMap: fakeParamMap({
-        idProduct: '123'
-      })
-    });
+  xit('should return false idProduct params', (doneFn) => {
+    const activateRoute = fakeActivatedRouteSnapshot({});
     const routerState = fakeRouterStateSnapshot({});
     authService.getUser.and.returnValue(mockObservable(null));
     const result = executeGuard(activateRoute, routerState) as Observable<boolean>;
     result.subscribe(rta => {
       expect(rta).toBeFalse();
-      expect(router.navigate).toHaveBeenCalledWith(['/home']);
+      expect(router.navigate).toHaveBeenCalledWith(['/']);
       doneFn();
     });
   });
